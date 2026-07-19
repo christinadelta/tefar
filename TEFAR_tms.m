@@ -26,11 +26,11 @@ function [comp_tms, line_components, muscle_components, decay_components, ...
 % trl is accepted for signature compatibility; the core is trial-structure
 % agnostic and does not require it.
 %
-% @christinadelta 2026
+% @christinadelta - 2026
 
 if nargin < 3 || isempty(cfg), cfg = struct(); end
 
-% ---- TMS-profile defaults (only set what the user did not) -------------
+% TMS-profile defaults (only set what the user did not) 
 cfg = setdef(cfg, 'detectors', ...
         {'line','muscle_topo','muscle','decay','recharge','blink','cardiac'});
 cfg = setdef(cfg, 'line_freq',   50);
@@ -44,10 +44,10 @@ cfg.decay    = setdef(cfg.decay,    'k', 2);
 cfg.recharge = setdef(cfg.recharge, 'window', [0.100 0.500]);
 cfg.recharge = setdef(cfg.recharge, 'k', 4);
 
-% ---- run core ----------------------------------------------------------
+% run core 
 [comp_tms, artifacts] = tefar_core(cfg, data_filtered);
 
-% ---- map to legacy outputs --------------------------------------------
+% map to legacy outputs 
 line_components        = artifacts.line;
 muscle_components      = artifacts.muscle_topo;
 additional_muscle_comp = artifacts.muscle;

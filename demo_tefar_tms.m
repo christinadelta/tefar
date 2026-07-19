@@ -13,7 +13,7 @@ clc; clear;
 addpath /Users/christinadelta/software/neuroscience/fieldtrip-20250414
 ft_defaults
 
-%% 1. Simulate TMS-EEG with ground-truth artefacts
+%% 1. simulate TMS-EEG with ground-truth artefacts
 % profile 'tms' injects: line, blink, muscle, cardiac, decay, recharge
 scfg          = [];
 scfg.profile  = 'tms';
@@ -27,7 +27,7 @@ for i = 1:numel(truth.label)
     fprintf('  source %2d : %s\n', i, truth.label{i});
 end
 
-%% 2. Mix sources to channels  ->  a normal FieldTrip raw data structure
+%% 2. mix sources to channels: a normal FieldTrip raw data structure
 % This is what your real recording looks like: channels x time, no labels.
 data          = [];
 data.label    = comp_true.topolabel;      % channel names
@@ -40,12 +40,12 @@ for k = 1:numel(comp_true.trial)
 end
 data.trialinfo      = ones(numel(data.trial), 1);
 
-%% 3. Run the tool  (this runs FastICA internally, then classifies)
+%% 3. run the tool  (this runs FastICA internally, then classifies)
 % trl is not needed by the core; pass [] for the demo.
 [comp_tms, line_c, muscle_c, decay_c, addmuscle_c, recharge_c, blink_c, artifacts] = ...
     TEFAR_tms(data, []);
 
-%% 4. Inspect what it flagged
+%% 4. inspect what it flagged
 fprintf('\n--- TEFAR_tms suggestions ---\n');
 fprintf('line       : %s\n', mat2str(line_c));
 fprintf('muscle(topo): %s\n', mat2str(muscle_c));
@@ -56,7 +56,7 @@ fprintf('blink      : %s\n', mat2str(blink_c));
 fprintf('cardiac    : %s\n', mat2str(artifacts.cardiac));
 fprintf('=> suggested reject (union): %s\n', mat2str(artifacts.reject));
 
-%% 5. Prepare a layout for topoplots
+%% 5. prepare a layout for topoplots
 % The simulated montage uses standard 10-20 names, so we build a layout from
 % the same standard_1005 template my actual pipelines already load.
 elec_file    = fullfile('/Users/christinadelta/software/neuroscience/fieldtrip-20250414', ...
@@ -65,7 +65,7 @@ cfg_lay      = [];
 cfg_lay.elec = ft_read_sens(elec_file);
 lay          = ft_prepare_layout(cfg_lay);   % topoplot keeps only matching channels
 
-%% 6. Plot ALL components as topographies (like your original overview)
+%% 6. plot ALL components as topographies (like your original overview)
 cfg           = [];
 cfg.component = 1:numel(comp_tms.label);
 cfg.layout    = lay;
@@ -74,7 +74,7 @@ cfg.comment   = 'no';
 figure('Name','All components');
 ft_topoplotIC(cfg, comp_tms);
 
-%% 7. Plot only the FLAGGED components, titled by artefact category
+%% 7. plot only the FLAGGED components, titled by artefact category
 cats   = {'line','muscle_topo','muscle','decay','recharge','blink','cardiac','eyemove'};
 reject = artifacts.reject;
 nrej   = numel(reject);

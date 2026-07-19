@@ -26,7 +26,7 @@ for i = 1:numel(truth.label)
     fprintf('  source %2d : %s\n', i, truth.label{i});
 end
 
-%% 2. Mix sources to channels  ->  a normal FieldTrip raw data structure
+%% 2. mix sources to channels: a normal FieldTrip raw data structure
 data          = [];
 data.label    = comp_true.topolabel;      % channel names
 data.fsample  = comp_true.fsample;
@@ -37,11 +37,11 @@ for k = 1:numel(comp_true.trial)
 end
 data.trialinfo = ones(numel(data.trial), 1);
 
-%% 3. Run the tool  (runs FastICA internally, then classifies)
-% Note the simpler EEG signature: [comp, artifacts].
+%% 3. run the tool  (runs FastICA internally, then classifies)
+% note the simpler EEG signature: [comp, artifacts].
 [comp_eeg, artifacts] = TEFAR_eeg(data);
 
-%% 4. Inspect what it flagged
+%% 4. inspect what it flagged
 fprintf('\n--- TEFAR_eeg suggestions ---\n');
 fprintf('line        : %s\n', mat2str(artifacts.line));
 fprintf('blink       : %s\n', mat2str(artifacts.blink));
@@ -51,16 +51,16 @@ fprintf('muscle(topo): %s\n', mat2str(artifacts.muscle_topo));
 fprintf('cardiac     : %s\n', mat2str(artifacts.cardiac));
 fprintf('=> suggested reject (union): %s\n', mat2str(artifacts.reject));
 
-%% 5. Prepare a layout for topoplots
+%% 5. prepare a layout for topoplots
 % The simulated montage uses standard 10-20 names, so we build a layout from
-% the same standard_1005 template your pipeline already loads.
+% the same standard_1005 template our pipeline already loads.
 elec_file    = fullfile('/Users/christinadelta/software/neuroscience/fieldtrip-20250414', ...
                         'template','electrode','standard_1005.elc');
 cfg_lay      = [];
 cfg_lay.elec = ft_read_sens(elec_file);
 lay          = ft_prepare_layout(cfg_lay);
 
-%% 6. Plot ALL components as topographies (overview)
+%% 6. plot ALL components as topographies (overview)
 cfg           = [];
 cfg.component = 1:numel(comp_eeg.label);
 cfg.layout    = lay;
@@ -68,7 +68,7 @@ cfg.comment   = 'no';
 figure('Name','All components');
 ft_topoplotIC(cfg, comp_eeg);
 
-%% 7. Plot only the FLAGGED components, titled by artefact category
+%% 7. plot only the FLAGGED components, titled by artefact category
 cats   = {'line','muscle_topo','muscle','blink','eyemove','cardiac'};
 reject = artifacts.reject;
 nrej   = numel(reject);

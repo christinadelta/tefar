@@ -24,7 +24,7 @@ if nargin < 3, savedir = ''; end
 FTPATH = '/Users/christinadelta/software/neuroscience/fieldtrip-20250414';
 addpath(FTPATH); ft_defaults;
 
-%% simulate (fixed seed for the illustrative panels)
+% --------------------- simulate (fixed seed for the illustrative panels)
 [comp, truth] = simulate_tefar_data(struct('profile',profile,'ntrials',40,'fs',1000,'seed',7));
 
 % layout from the standard template
@@ -47,7 +47,7 @@ band = containers.Map();
 band('line')=[48 52]; band('muscle')=[20 90]; band('blink')=[1 4];
 band('eyemove')=[1 4]; band('cardiac')=[]; band('decay')=[]; band('recharge')=[];
 
-%% ---------------- FIG 1: artefact signatures ----------------
+% -------------------------------------------- FIG 1: artefact signatures 
 f1 = figure('Name','TEFAR artefact signatures','Color','w', ...
             'Position',[80 80 760 140*numel(classes)]);
 for i = 1:numel(classes)
@@ -86,7 +86,7 @@ end
 sgtitle(sprintf('Artefact signatures (%s profile)', upper(profile)));
 save_fig(f1, savedir, sprintf('fig1_signatures_%s', profile));
 
-%% ---------------- FIG 2: feature separation ----------------
+% ------------------------------------------- FIG 2: feature separation 
 res = verify_tefar_logic(profile);           % metrics + truth on seed 7
 m   = res.metrics; lbl = res.truth.label; nc = numel(lbl);
 
@@ -125,7 +125,7 @@ end
 sgtitle(sprintf('Feature separation: artefact (red) vs brain (grey) — %s', upper(profile)));
 save_fig(f2, savedir, sprintf('fig2_separation_%s', profile));
 
-%% ---------------- FIG 3: performance across seeds ----------------
+% ---------------------------------------- FIG 3: performance across seeds
 S = zeros(nseed,3);
 for s = 1:nseed
     evalc('rr = verify_tefar_logic(profile, s);');     % suppress printout

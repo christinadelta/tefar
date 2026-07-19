@@ -108,7 +108,7 @@ fprintf('======================================================\n\n');
 results=struct('sens',sens,'spec',spec,'acc',acc,'f1',f1,'A',A,'reject',reject,'metrics',m,'truth',truth);
 end
 
-% ============================ helpers ==================================
+% --------------------------------------------------------------- helpers 
 function cfg = default_cfg(profile)
 cfg.line_freq=50; cfg.baseline=[-0.5 -0.01];
 cfg.line.bw=2; cfg.line.z=5;

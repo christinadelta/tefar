@@ -40,13 +40,13 @@ cfg = d(cfg,'noise',0.05);
 
 rng_local(cfg.seed);
 
-% ---- montage (30ch subset of 10-20) -----------------------------------
+% ----------------------------------------- montage (30ch subset of 10-20) 
 chan = {'Fp1','Fp2','AF3','AF4','F7','F3','Fz','F4','F8','FC5','FC1',...
         'FC2','FC6','T7','C3','Cz','C4','T8','CP5','CP1','CP2','CP6',...
         'P7','P3','Pz','P4','P8','O1','Oz','O2'};
 nchan = numel(chan);
 
-% ---- time base ---------------------------------------------------------
+% ------------------------------------------------------------- time base 
 if strcmpi(cfg.profile,'tms')
     t = (-1 : 1/cfg.fs : 1 - 1/cfg.fs);      % event-locked at 0
 else
@@ -54,7 +54,7 @@ else
 end
 nt = numel(t);
 
-% ---- assemble sources --------------------------------------------------
+% ------------------------------------------------------ assemble sources
 S      = {};   % per-source time course generator handles produce [1 x nt]
 A      = [];   % topographies [nchan x nsource]
 labels = {};
@@ -110,7 +110,7 @@ end
 
 nsource = numel(S);
 
-% ---- build per-trial component activations ----------------------------
+% ---------------------------------- build per-trial component activations 
 trial = cell(1,cfg.ntrials);
 time  = cell(1,cfg.ntrials);
 for k = 1:cfg.ntrials
@@ -124,7 +124,7 @@ for k = 1:cfg.ntrials
     time{k}  = t;
 end
 
-% ---- pack as a FieldTrip component structure --------------------------
+% ------------------------------- pack as a FieldTrip component structure
 comp = struct();
 comp.topo         = A;
 comp.topolabel    = chan(:);
@@ -141,9 +141,9 @@ comp.cfg          = struct('simulated', true);
 truth = struct();
 truth.label       = labels;
 truth.isartefact  = ~strcmp(labels,'brain');
-end % ===================================================================
+end 
 
-% ---------------------------- source generators -----------------------
+% ------------------------------------------------------ source generators
 function y = brain_source(nt,fs,fpk)
 y = pinknoise(nt, 1.0);                        % steeper 1/f (cortical-like)
 % add a narrowband oscillation around fpk

@@ -66,7 +66,7 @@ function [comp, artifacts] = tefar_core(cfg, data)
 %     .metrics    -> struct of per-component metric vectors
 %     .cfg        -> the fully-populated cfg actually used
 %
-% @christinadelta 2026 
+% @christinadelta - 2026 
 % ---------------------------------------------------------------- defaults
 if nargin < 1 || isempty(cfg), cfg = struct(); end
 
@@ -272,7 +272,7 @@ artifacts.cfg      = cfg;
 if cfg.verbose
     local_report(A, reject, score, cfg);
 end
-end % ===================================================================
+end 
 
 % ======================================================================
 % Subfunctions (all toolbox-free)
