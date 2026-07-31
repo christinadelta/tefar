@@ -77,6 +77,3 @@ validate_tefar('tms','components');                       % via real tefar_core
 validate_tefar('tms','endtoend');                         % full ICA pipeline
 ```
 
-## Note on porting from `TEFAR_v3`
-
-The refactor also fixes a few latent issues in the original: `kurtosis()` required the Statistics toolbox (now local); the recharge window `-1.5…1.5 s` selected the whole segment; decay used signed-mean (sign cancellation) rather than RMS; and the multi-metric `score` was computed but never actually used for rejection (the pipeline took the union of all categories). All are addressed here.
