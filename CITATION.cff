@@ -1,0 +1,33 @@
+# This CITATION.cff file was generated to make TEFAR citable.
+# Validate or edit at: https://citation-file-format.github.io/cff-initializer-javascript/
+cff-version: 1.2.0
+message: "If you use TEFAR in your work, please cite it using the metadata below."
+type: software
+title: "TEFAR: TMS-EEG / EEG FieldTrip Artefact Removal"
+abstract: >-
+  A lightweight, configurable MATLAB framework for automated
+  artefact-component classification in EEG and TMS-EEG, built on
+  FieldTrip. A shared scoring engine detects line noise, blinks,
+  lateral eye movements, cranial muscle, cardiac activity, and the
+  TMS decay and recharge transients from established independent-
+  component signatures, using robust (median/MAD) thresholds, and
+  suggests components for removal subject to expert confirmation.
+authors:
+  - family-names: "Dimitriadou"
+    given-names: "Christina"
+    affiliation: "Department of Psychology, Royal Holloway, University of London"
+    email: "pljt159@live.rhul.ac.uk"
+    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"  # uncomment and fill in if you have one
+version: "1.0.0"
+date-released: "2026-08-07"  # set to the actual date you tag the release
+license: MIT
+repository-code: "https://github.com/christinadelta/tefar"  # adjust if you keep a different repo name
+keywords:
+  - EEG
+  - TMS-EEG
+  - ICA
+  - artefact rejection
+  - independent component analysis
+  - FieldTrip
+  - MATLAB
+  - preprocessing
