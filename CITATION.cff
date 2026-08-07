@@ -17,11 +17,11 @@ authors:
     given-names: "Christina"
     affiliation: "Department of Psychology, Royal Holloway, University of London"
     email: "pljt159@live.rhul.ac.uk"
-    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"  # uncomment and fill in if you have one
+    orcid: "https://orcid.org/0000-0003-1544-5857"  
 version: "1.0.0"
-date-released: "2026-08-07"  # set to the actual date you tag the release
+date-released: "2026-08-08"  
 license: MIT
-repository-code: "https://github.com/christinadelta/tefar"  # adjust if you keep a different repo name
+repository-code: "https://github.com/christinadelta/tefar"  
 keywords:
   - EEG
   - TMS-EEG
