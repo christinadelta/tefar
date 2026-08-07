@@ -1,0 +1,79 @@
+# TEFAR — TMS/EEG FieldTrip Artefact Removal
+
+A lightweight, configurable framework for ICA-based artefact-component classification in (TMS-)EEG. One scoring engine, two profiles. FieldTrip is the only dependency — no MATLAB toolboxes (kurtosis, robust statistics, autocorrelation and the periodogram used in the validation are all implemented locally).
+
+## Files
+
+|File|Purpose|
+|---|---|
+|`tefar_core.m`|The engine. Runs ICA (FastICA by default) and scores every component against a configurable set of detectors.|
+|`TEFAR_tms.m`|TMS-EEG profile wrapper for TMS protocols.|
+|`TEFAR_eeg.m`|EEG profile wrapper for ordinary resting/task data (no TMS).|
+|`simulate_tefar_data.m`|Ground-truth simulation (`x = A·s`) with known artefact labels. Base MATLAB/Octave only.|
+|`validate_tefar.m`|Validation against the simulation using the real `tefar_core` (needs FieldTrip).|
+|`verify_tefar_logic.m`|Independent, FieldTrip-free reimplementation of the detector math for a toolbox-free cross-check (runs in MATLAB or Octave).|
+|`_verify_logic.py`|Python port of the simulation + detector logic used during development.|
+
+## Detectors
+
+Each detector targets an established independent-component artefact signature:
+
+|Detector|Feature|Rule|
+|---|---|---|
+|`line`|mains fundamental / sideband **prominence**|robust-z > 5|
+|`muscle`|high-frequency power **fraction** (mains excluded)|robust-z > 5 **and** fraction > 0.5|
+|`muscle_topo`|spatial **focality** = peak/Σ\|topo\||robust-z > 5|
+|`blink`|temporal **kurtosis** + **frontal** topography|kurt > 4 and frontal ratio > 0.5|
+|`eyemove`|fronto-lateral **anti-symmetry**|asym > 0.15 and frontal ratio > 0.5|
+|`cardiac`|autocorrelation **periodicity** + spikiness|robust-z > 5, autocorr > 0.15, kurt > 3.5|
+|`decay` (TMS)|early post-pulse **RMS** vs baseline SD|RMS > 2·baseline SD|
+|`recharge` (TMS)|later-window **RMS** vs baseline SD|RMS > 4·baseline SD|
+
+Two design choices carried over from testing:
+
+- **Robust z-scores (median / MAD)** replace `mean + k·SD`. With a single dominant artefact component the classic rule is nearly unreachable (the outlier inflates its own mean and SD; the maximum achievable z is `(N-1)/√N`). Median/MAD is immune to this.
+- All temporal detectors locate their window from `comp.time` **per trial**, so there is no assumption about trial/segment structure (the original `TEFAR_v3` hard-coded a 3-segments-per-trial layout).
+
+## Usage
+
+```matlab
+% TMS-EEG, drop-in for the old call (existing pipeline unchanged):
+[comp, line_c, musc_c, decay_c, addmusc_c, rech_c, blink_c] = ...
+    TEFAR_tms(data_filtered, trl);
+
+% ...or grab the full result (scores, metrics, populated cfg):
+[comp, ~,~,~,~,~,~, artifacts] = TEFAR_tms(data_filtered, trl);
+artifacts.reject      % suggested components
+artifacts.score       % detectors firing per component
+artifacts.metrics     % all per-component metric vectors
+
+% Ordinary EEG:
+[comp, artifacts] = TEFAR_eeg(data);
+
+% Override any default (e.g. US mains, stricter line rule, score-based reject):
+cfg = struct('line_freq',60,'reject_rule','score','reject_threshold',2);
+cfg.line.z = 6;
+[comp, artifacts] = TEFAR_eeg(data, cfg);
+```
+
+`reject_rule` is `'union'` by default (any detector flags → suggest removal), matching the original behaviour. Set `'score'` to require agreement across `reject_threshold` detectors instead. Either way, TEFAR only **suggests** — confirm by visual inspection before rejecting.
+
+## Validation
+
+`x = A·s` is built from labelled latent sources, so every flag can be scored against ground truth. Feeding the known sources straight into the detectors (isolating classification from ICA separation quality):
+
+|Profile|Sensitivity|Specificity|Accuracy|
+|---|---|---|---|
+|TMS (single seed)|1.00|1.00|1.00|
+|EEG (single seed)|1.00|1.00|1.00|
+|TMS (40 random seeds)|~0.93|~1.00|~0.98|
+|EEG (40 random seeds)|~0.92|~0.99|~0.97|
+
+Near-perfect **specificity** is the property that matters most: brain components are essentially never removed. The ~8 % of missed artefacts on some seeds are exactly what the semi-automatic visual-inspection step exists to catch. Reproduce with:
+
+```matlab
+verify_tefar_logic('tms');   verify_tefar_logic('eeg');   % toolbox-free
+validate_tefar('tms','components');                       % via real tefar_core
+validate_tefar('tms','endtoend');                         % full ICA pipeline
+```
+
