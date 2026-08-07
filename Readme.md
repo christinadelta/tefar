@@ -32,7 +32,7 @@ Each detector targets an established independent-component artefact signature:
 Two design choices carried over from testing:
 
 - **Robust z-scores (median / MAD)** replace `mean + k·SD`. With a single dominant artefact component the classic rule is nearly unreachable (the outlier inflates its own mean and SD; the maximum achievable z is `(N-1)/√N`). Median/MAD is immune to this.
-- All temporal detectors locate their window from `comp.time` **per trial**, so there is no assumption about trial/segment structure (the original `TEFAR_v3` hard-coded a 3-segments-per-trial layout).
+- All temporal detectors locate their window from `comp.time` **per trial**.
 
 ## Usage
 
