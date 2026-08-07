@@ -7,7 +7,7 @@ A lightweight, configurable framework for ICA-based artefact-component classific
 |File|Purpose|
 |---|---|
 |`tefar_core.m`|The engine. Runs ICA (FastICA by default) and scores every component against a configurable set of detectors.|
-|`TEFAR_tms.m`|TMS profile wrapper. **Drop-in replacement for `TEFAR_v3`** — first seven outputs are identical, so existing pipelines keep working.|
+|`TEFAR_tms.m`|TMS-EEG profile wrapper for TMS protocols.|
 |`TEFAR_eeg.m`|EEG profile wrapper for ordinary resting/task data (no TMS).|
 |`simulate_tefar_data.m`|Ground-truth simulation (`x = A·s`) with known artefact labels. Base MATLAB/Octave only.|
 |`validate_tefar.m`|Validation against the simulation using the real `tefar_core` (needs FieldTrip).|
@@ -77,6 +77,3 @@ validate_tefar('tms','components');                       % via real tefar_core
 validate_tefar('tms','endtoend');                         % full ICA pipeline
 ```
 
-## Note on porting from `TEFAR_v3`
-
-The refactor also fixes a few latent issues in the original: `kurtosis()` required the Statistics toolbox (now local); the recharge window `-1.5…1.5 s` selected the whole segment; decay used signed-mean (sign cancellation) rather than RMS; and the multi-metric `score` was computed but never actually used for rejection (the pipeline took the union of all categories). All are addressed here.
