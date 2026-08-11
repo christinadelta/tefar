@@ -56,7 +56,7 @@ cfg.line.z = 6;
 [comp, artifacts] = TEFAR_eeg(data, cfg);
 ```
 
-`reject_rule` is `'union'` by default (any detector flags → suggest removal), matching the original behaviour. Set `'score'` to require agreement across `reject_threshold` detectors instead. Either way, TEFAR only **suggests** — confirm by visual inspection before rejecting.
+`reject_rule` is `'union'` by default (any detector flags → suggest removal), matching the original behaviour. Set `'score'` to require agreement across `reject_threshold` detectors instead. Either way, TEFAR only **suggests**; please confirm by visual inspection before rejecting.
 
 ## Validation
 
