@@ -10,7 +10,7 @@ TEFAR is **semi-automatic by design**: it suggests components for removal and re
 
 **Key properties**
 
-- One engine, two profiles: `TEFAR_eeg` for resting/task EEG, `TEFAR_tms` for TMS–EEG (a drop-in replacement preserving a legacy call signature).
+- One engine, two profiles: `TEFAR_eeg` for resting/task EEG, `TEFAR_tms` for TMS–EEG.
 - FieldTrip is the **only** dependency. Kurtosis, robust statistics, autocorrelation, and the periodogram are implemented internally. No MATLAB toolboxes required.
 - Robust (median/MAD) thresholds that remain stable even when a single artefact dominates the decomposition.
 - Fully configurable through a single `cfg` structure: every band, threshold, window, and channel set has a documented, overridable default.
