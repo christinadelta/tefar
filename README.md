@@ -51,12 +51,12 @@ cfg.component = artifacts.reject;
 data_clean    = ft_rejectcomponent(cfg, comp);
 ```
 
-For a complete worked example on simulated data — including topoplots of the flagged components — see [`demo_tefar_eeg.m`](demo_tefar_eeg.m) and [`demo_tefar_tms.m`](demo_tefar_tms.m).
+For a complete worked example on simulated data (including topoplots of the flagged components) see [`demo_tefar_eeg.m`](demo_tefar_eeg.m) and [`demo_tefar_tms.m`](demo_tefar_tms.m).
 
 ## Usage
 
 ```matlab
-% TMS-EEG, drop-in for the legacy call (existing pipelines unchanged):
+% TMS-EEG (per-detector component lists as separate outputs):
 [comp, line_c, musc_c, decay_c, addmusc_c, rech_c, blink_c] = ...
     TEFAR_tms(data_filtered, trl);
 
@@ -117,7 +117,7 @@ make_tefar_figures                    % regenerates the figures in the paper
 |---|---|
 | `tefar_core.m` | The engine: runs ICA (FastICA by default) and scores every component against the configured detectors. |
 | `TEFAR_eeg.m` | EEG profile wrapper (resting/task data, no TMS). |
-| `TEFAR_tms.m` | TMS–EEG profile wrapper; backward-compatible legacy signature. |
+| `TEFAR_tms.m` | TMS–EEG profile wrapper. |
 | `demo_tefar_eeg.m` | Worked example: simulate EEG, classify, plot flagged components. |
 | `demo_tefar_tms.m` | Worked example: simulate TMS–EEG, classify, plot flagged components. |
 | `simulate_tefar_data.m` | Ground-truth simulation (`x = A·s`) with labelled sources; base MATLAB/Octave only. |
