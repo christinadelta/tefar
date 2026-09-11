@@ -4,14 +4,14 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
 <!-- TODO: replace XXXXXXX with the Zenodo DOI; add a bioRxiv badge once the preprint is up -->
 
-TEFAR is a lightweight, configurable MATLAB framework for automated, ICA-based artefact-component classification in EEG and TMS–EEG, built on [FieldTrip](https://www.fieldtriptoolbox.org/). A single scoring engine (`tefar_core`) is exposed through two profile wrappers — one for ordinary EEG, one for TMS–EEG — and detects line noise, blinks, lateral eye movements, cranial muscle, cardiac activity, and the TMS-specific decay and recharge transients from established independent-component signatures.
+TEFAR is a lightweight, configurable MATLAB framework for automated, ICA-based artefact-component classification in EEG and TMS–EEG, built on [FieldTrip](https://www.fieldtriptoolbox.org/). A single scoring engine (`tefar_core`) is exposed through two profile wrappers, one for ordinary EEG, one for TMS–EEG, and detects line noise, blinks, lateral eye movements, cranial muscle, cardiac activity, and the TMS-specific decay and recharge transients from established independent-component signatures.
 
 TEFAR is **semi-automatic by design**: it suggests components for removal and reports why, but the final decision rests with the analyst. Visual inspection of component topographies, time courses, and spectra remains an essential step of the workflow.
 
 **Key properties**
 
 - One engine, two profiles: `TEFAR_eeg` for resting/task EEG, `TEFAR_tms` for TMS–EEG (a drop-in replacement preserving a legacy call signature).
-- FieldTrip is the **only** dependency — kurtosis, robust statistics, autocorrelation, and the periodogram are implemented internally; no MATLAB toolboxes required.
+- FieldTrip is the **only** dependency. Kurtosis, robust statistics, autocorrelation, and the periodogram are implemented internally. No MATLAB toolboxes required.
 - Robust (median/MAD) thresholds that remain stable even when a single artefact dominates the decomposition.
 - Fully configurable through a single `cfg` structure: every band, threshold, window, and channel set has a documented, overridable default.
 - Trial-structure agnostic: temporal detectors locate their windows from each component's own time axis.
@@ -88,7 +88,7 @@ Each detector targets an established independent-component artefact signature:
 
 Two design choices matter in practice:
 
-- **Robust z-scores (median/MAD)** replace the conventional `mean + k·SD` rule. When a single component carries almost all of an artefact — typical for line noise or a large muscle component — the outlier inflates its own mean and SD, and the maximum achievable classic z-score is only `(N−1)/√N`. Median/MAD thresholds are immune to this.
+- **Robust z-scores (median/MAD)** replace the conventional `mean + k·SD` rule. When a single component carries almost all of an artefact (typical for line noise or a large muscle component), the outlier inflates its own mean and SD, and the maximum achievable classic z-score is only `(N−1)/√N`. Median/MAD thresholds are immune to this.
 - **Temporal detectors are trial-structure agnostic**: the decay/recharge windows are located from `comp.time` per trial, so no epoching convention is assumed.
 
 ## Validation
