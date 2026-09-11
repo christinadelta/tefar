@@ -23,6 +23,7 @@ authors:
     affiliation: "Department of Psychology, Royal Holloway, University of London"
     orcid: "https://orcid.org/0000-0003-2488-1343"  
 version: "1.0.0"
+doi: "10.5281/zenodo.22706419"
 date-released: "2026-09-11"  
 license: MIT
 repository-code: "https://github.com/christinadelta/tefar"  
