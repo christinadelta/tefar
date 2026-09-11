@@ -7,15 +7,12 @@ function [comp_tms, line_components, muscle_components, decay_components, ...
 %    additional_muscle_comp, recharge_components, eye_blinks_components, ...
 %    artifacts] = TEFAR_tms(data_filtered, trl, cfg)
 %
-% Backward-compatible drop-in replacement for TEFAR_v3: the first seven
-% outputs match the original signature exactly, so existing pipelines keep
-% working. The eighth output (artifacts) exposes the full core result
-% (scores, metrics, populated cfg) for anyone who wants it.
+% Thin wrapper around tefar_core: sets TMS-appropriate defaults and returns
+% the component lists flagged by each detector as separate outputs. The
+% final output (artifacts) exposes the full core result (scores, metrics,
+% populated cfg). Override any default by passing a cfg struct (third arg).
 %
-% This is a thin wrapper: it sets TMS-appropriate defaults and calls
-% tefar_core. Override any default by passing a cfg struct (third arg).
-%
-% Output mapping (old name -> core detector)
+% Output mapping (output -> core detector)
 %   line_components        <- line        (mains + harmonics power)
 %   muscle_components      <- muscle_topo (focal topography near coil)
 %   additional_muscle_comp <- muscle      (high-frequency EMG power)
@@ -23,8 +20,8 @@ function [comp_tms, line_components, muscle_components, decay_components, ...
 %   recharge_components    <- recharge    (later recharge-window amplitude)
 %   eye_blinks_components  <- blink       (frontal + high kurtosis)
 %
-% trl is accepted for signature compatibility; the core is trial-structure
-% agnostic and does not require it.
+% trl is optional and may be []; the core is trial-structure agnostic and
+% does not require it.
 %
 % @christinadelta - 2026
 
