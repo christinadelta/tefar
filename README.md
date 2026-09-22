@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21844563.svg)](https://doi.org/10.5281/zenodo.21844563)
 
-TEFAR is a lightweight, configurable MATLAB framework for semi-automatatic, ICA-based artefact-component classification in EEG and TMS–EEG, built on [FieldTrip](https://www.fieldtriptoolbox.org/). A single scoring engine (`tefar_core`) is exposed through two profile wrappers, one for ordinary EEG, one for TMS–EEG, and detects line noise, blinks, lateral eye movements, cranial muscle, cardiac activity, and the TMS-specific decay and recharge transients from established independent-component signatures.
+TEFAR is a lightweight, configurable MATLAB framework for semi-automatic, ICA-based artefact-component classification in EEG and TMS–EEG, built on [FieldTrip](https://www.fieldtriptoolbox.org/). A single scoring engine (`tefar_core`) is exposed through two profile wrappers, one for ordinary EEG, one for TMS–EEG, and detects line noise, blinks, lateral eye movements, cranial muscle, cardiac activity, and the TMS-specific decay and recharge transients from established independent-component signatures.
 
 TEFAR is **semi-automatic by design**: it suggests components for removal and reports why, but the final decision rests with the researcher. Visual inspection of component topographies, time courses, and spectra remains an essential step of the workflow.
 
