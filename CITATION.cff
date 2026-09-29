@@ -1,17 +1,18 @@
 # This CITATION.cff file was generated to make TEFAR citable.
 # Validate or edit at: https://citation-file-format.github.io/cff-initializer-javascript/
 cff-version: 1.2.0
-message: "If you use TEFAR in your work, please cite it using the metadata below."
+message: "If you use TEFAR in your work, please cite the preprint below (preferred-citation). To cite the software itself, use the Zenodo DOI."
 type: software
 title: "TEFAR: TMS-EEG / EEG FieldTrip Artefact Removal"
 abstract: >-
-  A lightweight, configurable MATLAB framework for automated
+  A lightweight, configurable MATLAB framework for semi-automatic
   artefact-component classification in EEG and TMS-EEG, built on
-  FieldTrip. A shared scoring engine detects line noise, blinks,
-  lateral eye movements, cranial muscle, cardiac activity, and the
-  TMS decay and recharge transients from established independent-
-  component signatures, using robust (median/MAD) thresholds, and
-  suggests components for removal subject to expert confirmation.
+  FieldTrip. A core function detects line noise, blinks, lateral eye
+  movements, cranial muscle, cardiac activity, and the TMS decay and
+  recharge artefacts from established independent-component
+  signatures, using robust (median/MAD) thresholds, and suggests
+  components for removal; the researcher confirms them by visual
+  inspection.
 authors:
   - family-names: "Dimitriadou"
     given-names: "Christina"
@@ -21,12 +22,11 @@ authors:
   - family-names: "Furl"
     given-names: "Nicholas"
     affiliation: "Department of Psychology, Royal Holloway, University of London"
-    orcid: "https://orcid.org/0000-0003-2488-1343"  
 version: "1.0.0"
 doi: "10.5281/zenodo.22706419"
-date-released: "2026-09-11"  
+date-released: "2026-09-11"
 license: MIT
-repository-code: "https://github.com/christinadelta/tefar"  
+repository-code: "https://github.com/christinadelta/tefar"
 keywords:
   - EEG
   - TMS-EEG
@@ -36,3 +36,17 @@ keywords:
   - FieldTrip
   - MATLAB
   - preprocessing
+preferred-citation:
+  type: article
+  title: "TEFAR: a lightweight, configurable framework for semi-automatic artefact-component classification in EEG and TMS-EEG"
+  authors:
+    - family-names: "Dimitriadou"
+      given-names: "Christina"
+      orcid: "https://orcid.org/0000-0003-1544-5857"
+    - family-names: "Furl"
+      given-names: "Nicholas"
+  journal: "bioRxiv"
+  year: 2026
+  doi: "10.64898/2026.09.22.751113"
+  url: "https://www.biorxiv.org/content/10.64898/2026.09.22.751113v1"
+  notes: "Preprint"
