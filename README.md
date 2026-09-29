@@ -127,10 +127,23 @@ make_tefar_figures                    % regenerates the figures in the paper
 
 ## Citation
 
-If you use TEFAR in your work, please cite the archived software version (v1.0.0 DOI: 10.5281/zenodo.22706419) or use the Cite this repository button above, which draws on CITATION.cff. The DOI 10.5281/zenodo.21844563 represents all versions and always resolves to the latest release.
+If you use TEFAR in your work, please cite the preprint:
 
-A methods paper describing TEFAR is in preparation; this section will be
-updated when the preprint is available.
+> Dimitriadou, C., & Furl, N. (2026). TEFAR: a lightweight, configurable framework for semi-automatic artefact-component classification in EEG and TMS-EEG. *bioRxiv*. https://doi.org/10.64898/2026.09.22.751113
+
+A PDF of the preprint is included in this repository ([paper/TEFAR_preprint_v1.pdf](paper/TEFAR_preprint_v1.pdf)), and the **Cite this repository** button above gives the reference in APA and BibTeX form (from `CITATION.cff`).
+
+To cite the software itself, use the archived release: v1.0.0, DOI [10.5281/zenodo.22706419](https://doi.org/10.5281/zenodo.22706419). The DOI [10.5281/zenodo.21844563](https://doi.org/10.5281/zenodo.21844563) represents all versions and always resolves to the latest release.
+
+```bibtex
+@article{dimitriadou2026tefar,
+  author  = {Dimitriadou, Christina and Furl, Nicholas},
+  title   = {{TEFAR}: A lightweight, configurable framework for semi-automatic artefact-component classification in {EEG} and {TMS-EEG}},
+  journal = {bioRxiv},
+  year    = {2026},
+  doi     = {10.64898/2026.09.22.751113}
+}
+```
 
 ## License
 
